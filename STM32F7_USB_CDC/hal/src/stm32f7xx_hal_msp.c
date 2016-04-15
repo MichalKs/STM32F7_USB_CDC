@@ -37,7 +37,14 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f7xx_hal.h"
-#include "usbd_cdc_interface.h"
+#include "main.h"
+
+/* Private typedef -----------------------------------------------------------*/
+/* Private define ------------------------------------------------------------*/
+/* Private macro -------------------------------------------------------------*/
+/* Private variables ---------------------------------------------------------*/
+/* Private function prototypes -----------------------------------------------*/
+/* Private functions ---------------------------------------------------------*/
 
 /**
   * @brief UART MSP Initialization 
@@ -60,8 +67,8 @@ void HAL_UART_MspInit(UART_HandleTypeDef *huart)
   USARTx_RX_GPIO_CLK_ENABLE();
 
   /* Select SysClk as source of USART1 clocks */
-  RCC_PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART6;
-  RCC_PeriphClkInit.Usart6ClockSelection = RCC_USART6CLKSOURCE_SYSCLK;
+  RCC_PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART1;
+  RCC_PeriphClkInit.Usart1ClockSelection = RCC_USART1CLKSOURCE_SYSCLK;
   HAL_RCCEx_PeriphCLKConfig(&RCC_PeriphClkInit);
   
   /* Enable USARTx clock */

@@ -28,10 +28,12 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32f7xx_hal.h"
-#include "usbd_core.h"
-#include <stm32746g_discovery.h>
+#include "main.h"
 
+/* Private typedef -----------------------------------------------------------*/
+/* Private define ------------------------------------------------------------*/
+/* Private macro -------------------------------------------------------------*/
+/* Private variables ---------------------------------------------------------*/
 extern PCD_HandleTypeDef hpcd;
 
 /* UART handler declared in "usbd_cdc_interface.c" file */
@@ -133,6 +135,16 @@ void DebugMon_Handler(void)
   */
 void PendSV_Handler(void)
 {
+}
+
+/**
+  * @brief  This function handles SysTick Handler.
+  * @param  None
+  * @retval None
+  */
+void SysTick_Handler(void)
+{
+  HAL_IncTick();
 }
 
 /******************************************************************************/
