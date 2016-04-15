@@ -56,6 +56,8 @@ TIM_HandleTypeDef  TimHandle;
 /* USB handler declaration */
 extern USBD_HandleTypeDef  USBD_Device;
 
+static volatile int vcpConfigured;
+
 /* Private function prototypes -----------------------------------------------*/
 static int8_t CDC_Itf_Init(void);
 static int8_t CDC_Itf_DeInit(void);
@@ -74,6 +76,18 @@ USBD_CDC_ItfTypeDef USBD_CDC_fops =
   CDC_Itf_Receive
 };
 
+int CDC_IsVcpConfigured(void) {
+  return vcpConfigured;
+}
+
+uint8_t CDC_Transmit_FS(uint8_t* Buf, uint16_t Len) {
+  uint8_t result = USBD_OK;
+
+  USBD_CDC_SetTxBuffer(&USBD_Device, Buf, Len);
+  result = USBD_CDC_TransmitPacket(&USBD_Device);
+  return result;
+}
+
 /* Private functions ---------------------------------------------------------*/
 
 /**
@@ -84,52 +98,54 @@ USBD_CDC_ItfTypeDef USBD_CDC_fops =
   */
 static int8_t CDC_Itf_Init(void)
 {
-  /*##-1- Configure the UART peripheral ######################################*/
-  /* Put the USART peripheral in the Asynchronous mode (UART Mode) */
-  /* USART configured as follow:
-      - Word Length = 8 Bits
-      - Stop Bit    = One Stop bit
-      - Parity      = No parity
-      - BaudRate    = 115200 baud
-      - Hardware flow control disabled (RTS and CTS signals) */
-  UartHandle.Instance          = USARTx;
-  UartHandle.Init.BaudRate     = 115200;
-  UartHandle.Init.WordLength   = UART_WORDLENGTH_8B;
-  UartHandle.Init.StopBits     = UART_STOPBITS_1;
-  UartHandle.Init.Parity       = UART_PARITY_NONE;
-  UartHandle.Init.HwFlowCtl    = UART_HWCONTROL_NONE;
-  UartHandle.Init.Mode         = UART_MODE_TX_RX;
-  UartHandle.Init.OverSampling = UART_OVERSAMPLING_16;
-    
-  if(HAL_UART_Init(&UartHandle) != HAL_OK)
-  {
-    /* Initialization Error */
-    Error_Handler();
-  }
-  
-  /*##-2- Put UART peripheral in IT reception process ########################*/
-  /* Any data received will be stored in "UserTxBuffer" buffer  */
-  if(HAL_UART_Receive_IT(&UartHandle, (uint8_t *)UserTxBuffer, 1) != HAL_OK)
-  {
-    /* Transfer error in reception process */
-    Error_Handler();
-  }
-  
-  /*##-3- Configure the TIM Base generation  #################################*/
-  TIM_Config();
-  
-  /*##-4- Start the TIM Base generation in interrupt mode ####################*/
-  /* Start Channel1 */
-  if(HAL_TIM_Base_Start_IT(&TimHandle) != HAL_OK)
-  {
-    /* Starting Error */
-    Error_Handler();
-  }
+//  /*##-1- Configure the UART peripheral ######################################*/
+//  /* Put the USART peripheral in the Asynchronous mode (UART Mode) */
+//  /* USART configured as follow:
+//      - Word Length = 8 Bits
+//      - Stop Bit    = One Stop bit
+//      - Parity      = No parity
+//      - BaudRate    = 115200 baud
+//      - Hardware flow control disabled (RTS and CTS signals) */
+//  UartHandle.Instance          = USARTx;
+//  UartHandle.Init.BaudRate     = 115200;
+//  UartHandle.Init.WordLength   = UART_WORDLENGTH_8B;
+//  UartHandle.Init.StopBits     = UART_STOPBITS_1;
+//  UartHandle.Init.Parity       = UART_PARITY_NONE;
+//  UartHandle.Init.HwFlowCtl    = UART_HWCONTROL_NONE;
+//  UartHandle.Init.Mode         = UART_MODE_TX_RX;
+//  UartHandle.Init.OverSampling = UART_OVERSAMPLING_16;
+//
+//  if(HAL_UART_Init(&UartHandle) != HAL_OK)
+//  {
+//    /* Initialization Error */
+//    Error_Handler();
+//  }
+//
+//  /*##-2- Put UART peripheral in IT reception process ########################*/
+//  /* Any data received will be stored in "UserTxBuffer" buffer  */
+//  if(HAL_UART_Receive_IT(&UartHandle, (uint8_t *)UserTxBuffer, 1) != HAL_OK)
+//  {
+//    /* Transfer error in reception process */
+//    Error_Handler();
+//  }
+//
+//  /*##-3- Configure the TIM Base generation  #################################*/
+//  TIM_Config();
+//
+//  /*##-4- Start the TIM Base generation in interrupt mode ####################*/
+//  /* Start Channel1 */
+//  if(HAL_TIM_Base_Start_IT(&TimHandle) != HAL_OK)
+//  {
+//    /* Starting Error */
+//    Error_Handler();
+//  }
   
   /*##-5- Set Application Buffers ############################################*/
   USBD_CDC_SetTxBuffer(&USBD_Device, UserTxBuffer, 0);
   USBD_CDC_SetRxBuffer(&USBD_Device, UserRxBuffer);
   
+  vcpConfigured = 1;
+
   return (USBD_OK);
 }
 
@@ -142,11 +158,12 @@ static int8_t CDC_Itf_Init(void)
 static int8_t CDC_Itf_DeInit(void)
 {
   /* DeInitialize the UART peripheral */
-  if(HAL_UART_DeInit(&UartHandle) != HAL_OK)
-  {
-    /* Initialization Error */
-    Error_Handler();
-  }
+//  if(HAL_UART_DeInit(&UartHandle) != HAL_OK)
+//  {
+//    /* Initialization Error */
+//    Error_Handler();
+//  }
+  vcpConfigured = 0;
   return (USBD_OK);
 }
 
@@ -190,7 +207,7 @@ static int8_t CDC_Itf_Control (uint8_t cmd, uint8_t* pbuf, uint16_t length)
     LineCoding.datatype   = pbuf[6];
     
     /* Set the new configuration */
-    ComPort_Config();
+//    ComPort_Config();
     break;
 
   case CDC_GET_LINE_CODING:
@@ -223,56 +240,56 @@ static int8_t CDC_Itf_Control (uint8_t cmd, uint8_t* pbuf, uint16_t length)
   * @param  htim: TIM handle
   * @retval None
   */
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
-{
-  uint32_t buffptr;
-  uint32_t buffsize;
-  
-  if(UserTxBufPtrOut != UserTxBufPtrIn)
-  {
-    if(UserTxBufPtrOut > UserTxBufPtrIn) /* Roll-back */
-    {
-      buffsize = APP_RX_DATA_SIZE - UserTxBufPtrOut;
-    }
-    else 
-    {
-      buffsize = UserTxBufPtrIn - UserTxBufPtrOut;
-    }
-    
-    buffptr = UserTxBufPtrOut;
-    
-    USBD_CDC_SetTxBuffer(&USBD_Device, (uint8_t*)&UserTxBuffer[buffptr], buffsize);
-    
-    if(USBD_CDC_TransmitPacket(&USBD_Device) == USBD_OK)
-    {
-      UserTxBufPtrOut += buffsize;
-      if (UserTxBufPtrOut == APP_RX_DATA_SIZE)
-      {
-        UserTxBufPtrOut = 0;
-      }
-    }
-  }
-}
+//void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+//{
+//  uint32_t buffptr;
+//  uint32_t buffsize;
+//
+//  if(UserTxBufPtrOut != UserTxBufPtrIn)
+//  {
+//    if(UserTxBufPtrOut > UserTxBufPtrIn) /* Roll-back */
+//    {
+//      buffsize = APP_RX_DATA_SIZE - UserTxBufPtrOut;
+//    }
+//    else
+//    {
+//      buffsize = UserTxBufPtrIn - UserTxBufPtrOut;
+//    }
+//
+//    buffptr = UserTxBufPtrOut;
+//
+//    USBD_CDC_SetTxBuffer(&USBD_Device, (uint8_t*)&UserTxBuffer[buffptr], buffsize);
+//
+//    if(USBD_CDC_TransmitPacket(&USBD_Device) == USBD_OK)
+//    {
+//      UserTxBufPtrOut += buffsize;
+//      if (UserTxBufPtrOut == APP_RX_DATA_SIZE)
+//      {
+//        UserTxBufPtrOut = 0;
+//      }
+//    }
+//  }
+//}
 
 /**
   * @brief  Rx Transfer completed callback
   * @param  huart: UART handle
   * @retval None
   */
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
-{
-  /* Increment Index for buffer writing */
-  UserTxBufPtrIn++;
-  
-  /* To avoid buffer overflow */
-  if(UserTxBufPtrIn == APP_RX_DATA_SIZE)
-  {
-    UserTxBufPtrIn = 0;
-  }
-  
-  /* Start another reception: provide the buffer pointer with offset and the buffer size */
-  HAL_UART_Receive_IT(huart, (uint8_t *)(UserTxBuffer + UserTxBufPtrIn), 1);
-}
+//void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+//{
+//  /* Increment Index for buffer writing */
+//  UserTxBufPtrIn++;
+//
+//  /* To avoid buffer overflow */
+//  if(UserTxBufPtrIn == APP_RX_DATA_SIZE)
+//  {
+//    UserTxBufPtrIn = 0;
+//  }
+//
+//  /* Start another reception: provide the buffer pointer with offset and the buffer size */
+//  HAL_UART_Receive_IT(huart, (uint8_t *)(UserTxBuffer + UserTxBufPtrIn), 1);
+//}
 
 /**
   * @brief  CDC_Itf_DataRx
@@ -284,7 +301,8 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
   */
 static int8_t CDC_Itf_Receive(uint8_t* Buf, uint32_t *Len)
 {
-  HAL_UART_Transmit_DMA(&UartHandle, Buf, *Len);
+//  HAL_UART_Transmit_DMA(&UartHandle, Buf, *Len);
+  USBD_CDC_ReceivePacket(&USBD_Device);
   return (USBD_OK);
 }
 
@@ -293,11 +311,11 @@ static int8_t CDC_Itf_Receive(uint8_t* Buf, uint32_t *Len)
   * @param  huart: UART handle
   * @retval None
   */
-void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
-{
-  /* Initiate next USB packet transfer once UART completes transfer (transmitting data over Tx line) */
-  USBD_CDC_ReceivePacket(&USBD_Device);
-}
+//void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
+//{
+//  /* Initiate next USB packet transfer once UART completes transfer (transmitting data over Tx line) */
+//  USBD_CDC_ReceivePacket(&USBD_Device);
+//}
 
 /**
   * @brief  ComPort_Config

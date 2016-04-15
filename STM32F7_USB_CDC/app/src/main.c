@@ -30,7 +30,15 @@
 USBD_HandleTypeDef USBD_Device;
 
 void softTimerCallback(void) {
+
+  static uint8_t buf[] = "Hello from VCP\r\n";
+
   LED_Toggle(_LED0);
+
+  if (CDC_IsVcpConfigured()) {
+    CDC_Transmit_FS(buf, strlen(buf));
+  }
+
 //  println("Test string sent from STM32F7!!!"); // Print test string
 }
 

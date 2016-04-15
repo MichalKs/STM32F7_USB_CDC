@@ -80,6 +80,8 @@
 #define CDC_POLLING_INTERVAL             5 /* in ms. The max is 65 and the min is 1 */
 
 extern USBD_CDC_ItfTypeDef  USBD_CDC_fops;
+uint8_t CDC_Transmit_FS(uint8_t* Buf, uint16_t Len);
+int CDC_IsVcpConfigured(void);
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
