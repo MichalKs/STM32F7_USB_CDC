@@ -8,7 +8,10 @@
 #include "timers.h"
 #include "system.h"
 #include "comm.h"
-#include "main.h"
+#include "usbd_core.h"
+#include "usbd_desc.h"
+#include "usbd_cdc.h"
+#include "usbd_cdc_interface.h"
 
 #ifdef DEBUG
 #define print(str, args...) printf(""str"%s",##args,"")
@@ -32,22 +35,6 @@ void softTimerCallback(void) {
 }
 
 /**
-  * @brief  Toggle LEDs to show user input state.
-  * @param  None
-  * @retval None
-  */
-void Toggle_Leds(void)
-{
-  static uint32_t ticks;
-
-  if(ticks++ == 0xfffff)
-  {
-    BSP_LED_Toggle(LED1);
-    ticks = 0;
-  }
-}
-
-/**
  * @brief Main function
  * @return
  */
@@ -56,7 +43,7 @@ int main(void) {
   SYSTEM_Init(); // Initialize STM32F7 and HAL (SYSTICK)
 
   // Add a soft timer with callback running every 1000ms
-  int8_t timerID = TIMER_AddSoftTimer(1000, softTimerCallback);
+  int8_t timerID = TIMER_AddSoftTimer(500, softTimerCallback);
   TIMER_StartSoftTimer(timerID); // start the timer
 
   LED_Init(_LED0); // Add an LED
@@ -113,7 +100,6 @@ int main(void) {
 
   /* Start Device Process */
   USBD_Start(&USBD_Device);
-
 
   uint8_t buf[255]; // buffer for receiving commands from PC
   uint8_t len;      // length of command

@@ -26,15 +26,13 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include "main.h"
+#include "stm32f7xx_hal.h"
+#include "usbd_cdc.h"
+#include "usbd_cdc_interface.h"
 
-/* Private typedef -----------------------------------------------------------*/
-/* Private define ------------------------------------------------------------*/
 #define APP_RX_DATA_SIZE  2048
 #define APP_TX_DATA_SIZE  2048
 
-/* Private macro -------------------------------------------------------------*/
-/* Private variables ---------------------------------------------------------*/
 USBD_CDC_LineCodingTypeDef LineCoding =
 {
   115200, /* baud rate*/

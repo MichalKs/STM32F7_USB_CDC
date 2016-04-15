@@ -28,11 +28,10 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include <main.h>
-/* Private typedef -----------------------------------------------------------*/
-/* Private define ------------------------------------------------------------*/
-/* Private macro -------------------------------------------------------------*/
-/* Private variables ---------------------------------------------------------*/
+#include "stm32f7xx_hal.h"
+#include "usbd_core.h"
+#include <stm32746g_discovery.h>
+
 extern PCD_HandleTypeDef hpcd;
 
 /* UART handler declared in "usbd_cdc_interface.c" file */
