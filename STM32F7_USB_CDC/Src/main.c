@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    USB_Device/CDC_Standalone/Src/main.c
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    25-June-2015
+  * @version V1.0.3
+  * @date    18-November-2015
   * @brief   USB device CDC demo main file
   ******************************************************************************
   * @attention
@@ -33,7 +33,6 @@
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 USBD_HandleTypeDef USBD_Device;
-extern PCD_HandleTypeDef hpcd;
 
 /* Private function prototypes -----------------------------------------------*/
 static void SystemClock_Config(void);

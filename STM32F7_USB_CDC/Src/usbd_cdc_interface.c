@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    USB_Device/CDC_Standalone/Src/usbd_cdc_interface.c
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    25-June-2015
+  * @version V1.0.3
+  * @date    18-November-2015
   * @brief   Source file for USBD CDC interface
   ******************************************************************************
   * @attention

@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    USB_Device/CDC_Standalone/Src/stm32f7xx_it.c 
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    25-June-2015
+  * @version V1.0.3
+  * @date    18-November-2015
   * @brief   Main Interrupt Service Routines.
   *          This file provides template for all exceptions handler and 
   *          peripherals interrupt service routine.
@@ -28,8 +28,7 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32f7xx_it.h"
-
+#include <main.h>
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/

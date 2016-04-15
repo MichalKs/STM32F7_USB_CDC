@@ -15,7 +15,7 @@
 #include <reent.h>
 #include <unistd.h>
 #include <sys/wait.h>
-
+//#include "comm.h"
 
 
 #define FreeRTOS
@@ -105,7 +105,8 @@ int _write(int file, char *ptr, int len)
 
 		for (DataIdx = 0; DataIdx < len; DataIdx++)
 		{
-		   __io_putchar( *ptr++ );
+//		   __io_putchar( *ptr++ );
+//		  COMM_Putc(*ptr++);
 		}
 	return len;
 }
