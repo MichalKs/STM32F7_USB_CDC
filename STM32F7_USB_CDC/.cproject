@@ -55,11 +55,12 @@
 									<listOptionValue builtIn="false" value="../libs/Drivers/CMSIS/Device/ST/STM32F7xx/Include"/>
 									<listOptionValue builtIn="false" value="../libs/Drivers/STM32F7xx_HAL_Driver/Inc"/>
 									<listOptionValue builtIn="false" value="../libs/Drivers/BSP/STM32746G-Discovery"/>
-									<listOptionValue builtIn="false" value="../Inc"/>
 									<listOptionValue builtIn="false" value="../libs/Include"/>
 									<listOptionValue builtIn="false" value="../libs/Middlewares/ST/STM32_USB_Device_Library/Core/Inc"/>
 									<listOptionValue builtIn="false" value="../libs/Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc"/>
 									<listOptionValue builtIn="false" value="../libs/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc"/>
+									<listOptionValue builtIn="false" value="../app/inc"/>
+									<listOptionValue builtIn="false" value="../hal/inc"/>
 								</option>
 								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.defs.600659410" name="Defined symbols (-D)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.defs" useByScannerDiscovery="false" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="USE_HAL_DRIVER"/>
@@ -106,7 +107,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="libs/Drivers/BSP/STM32746G-Discovery/stm32746g_discovery_ts.c|libs/Drivers/BSP/STM32746G-Discovery/stm32746g_discovery_sdram.c|libs/Drivers/BSP/STM32746G-Discovery/stm32746g_discovery_sd.c|libs/Drivers/BSP/STM32746G-Discovery/stm32746g_discovery_qspi.c|libs/Drivers/BSP/STM32746G-Discovery/stm32746g_discovery_lcd.c|libs/Drivers/BSP/STM32746G-Discovery/stm32746g_discovery_eeprom.c|libs/Drivers/BSP/STM32746G-Discovery/stm32746g_discovery_camera.c|libs/Drivers/BSP/STM32746G-Discovery/stm32746g_discovery_audio.c|libs/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_conf_template.c|libs/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc_if_template.c|libs/Middlewares/ST/STM32_USB_Device_Library/Class/Template|libs/Middlewares/ST/STM32_USB_Device_Library/Class/MSC|libs/Middlewares/ST/STM32_USB_Device_Library/Class/HID|libs/Middlewares/ST/STM32_USB_Device_Library/Class/DFU|libs/Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID|libs/Middlewares/ST/STM32_USB_Device_Library/Class/AUDIO|libs/Middlewares/ST/STM32_USB_Host_Library|libs/Utilities" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="app/src/stubs.c|app/src/comm.c|hal/src/uart6.c|libs/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_conf_template.c|libs/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc_if_template.c|libs/Middlewares/ST/STM32_USB_Device_Library/Class/Template|libs/Middlewares/ST/STM32_USB_Device_Library/Class/MSC|libs/Middlewares/ST/STM32_USB_Device_Library/Class/HID|libs/Middlewares/ST/STM32_USB_Device_Library/Class/DFU|libs/Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID|libs/Middlewares/ST/STM32_USB_Device_Library/Class/AUDIO|libs/Middlewares/ST/STM32_USB_Host_Library|libs/Utilities" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
