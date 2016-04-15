@@ -26,12 +26,7 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32f7xx_hal.h"
-#include "usbd_core.h"
-#include "usbd_desc.h"
-#include "usbd_cdc.h"
-#include "usbd_cdc_interface.h"
-#include <stm32746g_discovery.h>
+#include "main.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -45,7 +40,7 @@ static void Error_Handler(void);
 static void CPU_CACHE_Enable(void);
 
 /* Private functions ---------------------------------------------------------*/
-void Toggle_Leds(void);
+
 /**
   * @brief  Main program
   * @param  None

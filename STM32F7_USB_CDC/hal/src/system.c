@@ -9,7 +9,7 @@ static void CPU_CACHE_Enable(void);
 void SYSTEM_Init(void) {
 
   /* Configure the MPU attributes as Write Through */
-  MPU_Config();
+//  MPU_Config();
 
   /* Enable the CPU Cache */
   CPU_CACHE_Enable();
@@ -47,7 +47,7 @@ void SYSTEM_Init(void) {
 static void SystemClock_Config(void) {
   RCC_ClkInitTypeDef RCC_ClkInitStruct;
   RCC_OscInitTypeDef RCC_OscInitStruct;
-
+  RCC_PeriphCLKInitTypeDef PeriphClkInitStruct;
   /* Enable HSE Oscillator and activate PLL with HSE as source */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;

@@ -61,6 +61,7 @@
 									<listOptionValue builtIn="false" value="../libs/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc"/>
 									<listOptionValue builtIn="false" value="../app/inc"/>
 									<listOptionValue builtIn="false" value="../hal/inc"/>
+									<listOptionValue builtIn="false" value="../Inc"/>
 								</option>
 								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.defs.600659410" name="Defined symbols (-D)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.defs" useByScannerDiscovery="false" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="USE_HAL_DRIVER"/>
@@ -107,7 +108,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="app/src/stubs.c|app/src/comm.c|hal/src/uart6.c|libs/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_conf_template.c|libs/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc_if_template.c|libs/Middlewares/ST/STM32_USB_Device_Library/Class/Template|libs/Middlewares/ST/STM32_USB_Device_Library/Class/MSC|libs/Middlewares/ST/STM32_USB_Device_Library/Class/HID|libs/Middlewares/ST/STM32_USB_Device_Library/Class/DFU|libs/Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID|libs/Middlewares/ST/STM32_USB_Device_Library/Class/AUDIO|libs/Middlewares/ST/STM32_USB_Host_Library|libs/Utilities" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="app/src/main.c|hal/src/usbd_desc.c|hal/src/usbd_conf.c|hal/src/usbd_cdc_interface.c|hal/src/systick.c|hal/src/stm32f7xx_it.c|hal/src/stm32f7xx_hal_msp.c|hal/src/system.c|app/src/stubs.c|app/src/comm.c|hal/src/uart6.c|libs/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_conf_template.c|libs/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc_if_template.c|libs/Middlewares/ST/STM32_USB_Device_Library/Class/Template|libs/Middlewares/ST/STM32_USB_Device_Library/Class/MSC|libs/Middlewares/ST/STM32_USB_Device_Library/Class/HID|libs/Middlewares/ST/STM32_USB_Device_Library/Class/DFU|libs/Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID|libs/Middlewares/ST/STM32_USB_Device_Library/Class/AUDIO|libs/Middlewares/ST/STM32_USB_Host_Library|libs/Utilities" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>

@@ -23,11 +23,7 @@
 #include <stdio.h>
 #include <systick.h>
 
-//#ifndef DEBUG
-//  #define DEBUG
-//#endif
-
-#ifdef DEBUG
+#ifdef DEBUG_TIMERS
   #define print(str, args...) printf("LED--> "str"%s",##args,"\r")
   #define println(str, args...) printf("LED--> "str"%s",##args,"\r\n")
 #else
