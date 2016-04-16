@@ -61,45 +61,45 @@ int main(void) {
   LED_Init(_LED0); // Add an LED
 
   //*******************LCD test
-//  BSP_LCD_Init();
-//  BSP_LCD_LayerDefaultInit(LTDC_ACTIVE_LAYER, LCD_FRAME_BUFFER);
+  BSP_LCD_Init();
+  BSP_LCD_LayerDefaultInit(LTDC_ACTIVE_LAYER, LCD_FRAME_BUFFER);
 
   // Set LCD Foreground Layer
-//  BSP_LCD_SelectLayer(LTDC_ACTIVE_LAYER);
+  BSP_LCD_SelectLayer(LTDC_ACTIVE_LAYER);
 
   // Clear the LCD
-//  BSP_LCD_SetBackColor(LCD_COLOR_DARKMAGENTA);
-//  BSP_LCD_Clear(LCD_COLOR_DARKMAGENTA);
+  BSP_LCD_SetBackColor(LCD_COLOR_DARKMAGENTA);
+  BSP_LCD_Clear(LCD_COLOR_DARKMAGENTA);
 
   /* Set the LCD Text Color */
-//  BSP_LCD_SetTextColor(LCD_COLOR_DARKBLUE);
+  BSP_LCD_SetTextColor(LCD_COLOR_DARKBLUE);
 
   /* Display LCD messages */
-//  BSP_LCD_DisplayStringAtLine(0, (uint8_t *)"STM32F7 Discovery");
-//  BSP_LCD_DisplayStringAtLine(1, (uint8_t *)"Hello World!!!");
-//
-//  BSP_LCD_DrawLine(50, 50, 150, 150);
-//  BSP_LCD_FillRect(100, 100, 100, 100);
-//  BSP_LCD_FillCircle(300, 50, 40);
+  BSP_LCD_DisplayStringAtLine(0, (uint8_t *)"STM32F7 Discovery");
+  BSP_LCD_DisplayStringAtLine(1, (uint8_t *)"Hello World!!!");
 
-//  BSP_TS_Init(BSP_LCD_GetXSize(), BSP_LCD_GetYSize());
+  BSP_LCD_DrawLine(50, 50, 150, 150);
+  BSP_LCD_FillRect(100, 100, 100, 100);
+  BSP_LCD_FillCircle(300, 50, 40);
 
-//  TS_StateTypeDef tsState;
+  BSP_TS_Init(BSP_LCD_GetXSize(), BSP_LCD_GetYSize());
+
+  TS_StateTypeDef tsState;
 
   //*******************LCD test END
 
-//  BSP_SD_Init();
+  BSP_SD_Init();
 
-//  HAL_SD_CardInfoTypedef cardInfo;
+  HAL_SD_CardInfoTypedef cardInfo;
 
-//  if (BSP_SD_IsDetected()) {
-//
-//    BSP_SD_GetCardInfo(&cardInfo);
-//
-//    println("SD card has %d blocks", cardInfo.CardBlockSize);
-//
-//
-//  }
+  if (BSP_SD_IsDetected()) {
+
+    BSP_SD_GetCardInfo(&cardInfo);
+
+    println("SD card has %d blocks", cardInfo.CardBlockSize);
+
+
+  }
 
   /* Init Device Library */
   USBD_Init(&USBD_Device, &VCP_Desc, 0);
@@ -131,28 +131,28 @@ int main(void) {
     }
 
     // check for new frames from PC
-//    if (!COMM_GetFrame(buf, &len)) {
-//      println("Got frame of length %d: %s", (int)len, (char*)buf);
-//
-//      // control LED0 from terminal
-//      if (!strcmp((char*)buf, ":LED0 ON")) {
-//        LED_ChangeState(_LED0, LED_ON);
-//      }
-//      if (!strcmp((char*)buf, ":LED0 OFF")) {
-//        LED_ChangeState(_LED0, LED_OFF);
-//      }
-//    }
+    if (!COMM_GetFrame(buf, &len)) {
+      println("Got frame of length %d: %s", (int)len, (char*)buf);
+
+      // control LED0 from terminal
+      if (!strcmp((char*)buf, ":LED0 ON")) {
+        LED_ChangeState(_LED0, LED_ON);
+      }
+      if (!strcmp((char*)buf, ":LED0 OFF")) {
+        LED_ChangeState(_LED0, LED_OFF);
+      }
+    }
 
     // check for touch screen events
-//    BSP_TS_GetState(&tsState);
-//    if (tsState.touchDetected == 1) {
-//      LED_Toggle(_LED0);
-//      BSP_TS_Get_GestureId(&tsState);
-//      if (tsState.gestureId != 0)
-//        println("Gesture id = %d", tsState.gestureId);
-//
-////      BSP_TS_ResetTouchData(&tsState);
-//    }
+    BSP_TS_GetState(&tsState);
+    if (tsState.touchDetected == 1) {
+      LED_Toggle(_LED0);
+      BSP_TS_Get_GestureId(&tsState);
+      if (tsState.gestureId != 0)
+        println("Gesture id = %d", tsState.gestureId);
+
+//      BSP_TS_ResetTouchData(&tsState);
+    }
 
     TIMER_SoftTimersUpdate(); // run timers
   }
