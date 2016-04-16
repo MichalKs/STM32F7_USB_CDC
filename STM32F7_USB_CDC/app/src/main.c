@@ -37,7 +37,7 @@ void softTimerCallback(void) {
 
   if (CDC_IsVcpConfigured()) {
     CDC_Transmit_FS(buf, strlen(buf));
-    LED_Toggle(_LED0);
+//    LED_Toggle(_LED0);
   }
 
   println("Test string sent from STM32F7!!!"); // Print test string
@@ -117,6 +117,18 @@ int main(void) {
   uint8_t len;      // length of command
 
   while (1) {
+
+    if (!CDC_GetFrame(buf, &len)) {
+      println("Got frame of length %d: %s", (int)len, (char*)buf);
+
+      // control LED0 from terminal
+      if (!strcmp((char*)buf, ":LED0 ON")) {
+        LED_ChangeState(_LED0, LED_ON);
+      }
+      if (!strcmp((char*)buf, ":LED0 OFF")) {
+        LED_ChangeState(_LED0, LED_OFF);
+      }
+    }
 
     // check for new frames from PC
 //    if (!COMM_GetFrame(buf, &len)) {

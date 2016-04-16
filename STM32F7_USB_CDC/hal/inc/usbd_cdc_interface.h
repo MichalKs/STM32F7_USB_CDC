@@ -34,6 +34,7 @@
 extern USBD_CDC_ItfTypeDef  USBD_CDC_fops;
 uint8_t CDC_Transmit_FS(uint8_t* Buf, uint16_t Len);
 int CDC_IsVcpConfigured(void);
+int CDC_GetFrame(uint8_t* buf, uint8_t* len);
 
 #endif /* __USBD_CDC_IF_H */
 
