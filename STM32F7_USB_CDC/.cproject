@@ -107,7 +107,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="app/src/stubs.c|app/src/comm.c|hal/src/uart6.c|libs/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_conf_template.c|libs/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc_if_template.c|libs/Middlewares/ST/STM32_USB_Device_Library/Class/Template|libs/Middlewares/ST/STM32_USB_Device_Library/Class/MSC|libs/Middlewares/ST/STM32_USB_Device_Library/Class/HID|libs/Middlewares/ST/STM32_USB_Device_Library/Class/DFU|libs/Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID|libs/Middlewares/ST/STM32_USB_Device_Library/Class/AUDIO|libs/Middlewares/ST/STM32_USB_Host_Library|libs/Utilities" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="app/src/stubs.c|libs/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_conf_template.c|libs/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc_if_template.c|libs/Middlewares/ST/STM32_USB_Device_Library/Class/Template|libs/Middlewares/ST/STM32_USB_Device_Library/Class/MSC|libs/Middlewares/ST/STM32_USB_Device_Library/Class/HID|libs/Middlewares/ST/STM32_USB_Device_Library/Class/DFU|libs/Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID|libs/Middlewares/ST/STM32_USB_Device_Library/Class/AUDIO|libs/Middlewares/ST/STM32_USB_Host_Library|libs/Utilities" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>

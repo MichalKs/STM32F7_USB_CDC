@@ -106,7 +106,7 @@ int _write(int file, char *ptr, int len)
 		for (DataIdx = 0; DataIdx < len; DataIdx++)
 		{
 //		   __io_putchar( *ptr++ );
-//		  COMM_Putc(*ptr++);
+		  COMM_Putc(*ptr++);
 		}
 	return len;
 }

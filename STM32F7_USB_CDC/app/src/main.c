@@ -13,6 +13,8 @@
 #include "usbd_cdc.h"
 #include "usbd_cdc_interface.h"
 
+#define DEBUG
+
 #ifdef DEBUG
 #define print(str, args...) printf(""str"%s",##args,"")
 #define println(str, args...) printf("MAIN--> "str"%s",##args,"\r\n")
@@ -33,13 +35,12 @@ void softTimerCallback(void) {
 
   static uint8_t buf[] = "Hello from VCP\r\n";
 
-  LED_Toggle(_LED0);
-
   if (CDC_IsVcpConfigured()) {
     CDC_Transmit_FS(buf, strlen(buf));
+    LED_Toggle(_LED0);
   }
 
-//  println("Test string sent from STM32F7!!!"); // Print test string
+  println("Test string sent from STM32F7!!!"); // Print test string
 }
 
 /**
@@ -49,6 +50,9 @@ void softTimerCallback(void) {
 int main(void) {
 
   SYSTEM_Init(); // Initialize STM32F7 and HAL (SYSTICK)
+
+  COMM_Init(115200);
+  println("Starting program");
 
   // Add a soft timer with callback running every 1000ms
   int8_t timerID = TIMER_AddSoftTimer(500, softTimerCallback);
